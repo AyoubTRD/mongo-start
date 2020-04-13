@@ -1,9 +1,11 @@
-const mongoose, {Schema} = require("mongoose")
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  name: String
-})
+  name: String,
+});
 
-const User = mongoose.model("user", UserSchema)
+const User = mongoose.model("user", UserSchema);
 
-module.exports = User
+module.exports = User;

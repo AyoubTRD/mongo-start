@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://localhost/users_test", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to mongoDB Successfully!"))
-  .catch((e) => console.log(e));
+const User = require("../src/User");
+
+before(async () => {
+  try {
+    await mongoose.connect("mongodb://localhost:27017/users_test", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+beforeEach(async () => {
+  await User.collection.drop();
+});
