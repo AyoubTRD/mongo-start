@@ -8,8 +8,13 @@ describe("Reading users", () => {
     await user.save();
   });
 
-  it("Read users by name", async () => {
+  it("Read user by name", async () => {
     const foundUser = await User.findOne({ name: "loeuf" });
-    assert(String(foundUser._id) === String(user._id));
+    assert(foundUser._id.toString() === user._id.toString());
+  });
+
+  it("Read user by id", async () => {
+    const foundUser = await User.findById(user._id);
+    assert(foundUser._id.toString() === user._id.toString());
   });
 });
