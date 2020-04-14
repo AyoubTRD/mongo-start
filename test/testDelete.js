@@ -19,3 +19,29 @@ describe("Deleting users", () => {
     assert(!removedUser);
   });
 });
+
+describe("Deleting posts", () => {
+  let user;
+
+  beforeEach(async () => {
+    user = await User.create({ name: "Joe", posts: [{ title: "Hello World" }] })
+  })
+
+  it("Deleting a post", async () => {
+    user.posts = user.posts.filter(post => post.title !== "Hello World")
+    await user.save()
+    const joe = await User.findOne({ name: "Joe" })
+    const removedPost = joe.posts.find(post => post.title === "Hello World")
+    assert(!removedPost)
+  })
+
+  it("Deleting all posts", async () => {
+    user.posts = []
+    await user.save()
+
+    const joe = await User.findOne({ name: "Joe" })
+
+    assert(joe.posts.length === 0)
+  })
+
+})

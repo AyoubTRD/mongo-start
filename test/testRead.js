@@ -4,7 +4,7 @@ const User = require("../src/User");
 describe("Reading users", () => {
   let user;
   beforeEach(async () => {
-    user = new User({ name: "loeuf" });
+    user = new User({ name: "loeuf", posts: [{ title: "Hello World" }] });
     await user.save();
   });
 
@@ -17,4 +17,8 @@ describe("Reading users", () => {
     const foundUser = await User.findById(user._id);
     assert(foundUser._id.toString() === user._id.toString());
   });
+
+  it("Read user's number of posts", () => {
+    assert(user.postCount === user.posts.length)
+  })
 });

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const User = require("../src/User");
+const Post = require("../src/Post");
+const Comment = require("../src/Comment");
 
 before(async () => {
   try {
@@ -15,7 +17,15 @@ before(async () => {
 });
 
 beforeEach(async () => {
-  await User.collection.drop();
+  try {
+    await User.collection.drop();
+  } catch (e) {}
+  try {
+    await Post.collection.drop();
+  } catch (e) {}
+  try {
+    await Comment.collection.drop();
+  } catch (e) {}
 });
 
 after(async () => {
